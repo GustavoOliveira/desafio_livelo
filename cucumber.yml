@@ -1,0 +1,26 @@
+<%time = Time.now.strftime('%Y%m%d_%H%M%S').to_s%>
+<%time = time + Random.new.rand(1..999999).to_s%>
+
+# Template
+default: -p html_report -p json_report -p chrome -p ec -p prd -p not_parallel_running
+parallel: -p html_parallel -p json_parallel -p chrome -p ec -p prd -p parallel_running --format ParallelTests::Cucumber::FailuresLogger --out cucumber_failures.log
+
+# Reports
+parallel_html_report: --format pretty --format html --out reports/parallel/relatorio_<%= ENV['TEST_ENV_NUMBER'] %>.html
+parallel_json_report: --format pretty --format json --out reports/parallel/relatorio_<%= ENV['TEST_ENV_NUMBER'] %>.json
+html_report: --format pretty --format html --out=reports/features_report_<%=time%>.html
+json_report: --format pretty --format json --out=reports/features_report_<%=time%>.json
+
+# Browsers
+chrome: BROWSER=chrome
+
+# Application
+ec: APP=ecommerce
+
+# Targets
+hml:  TARGET=hml
+prd:  TARGET=prd
+
+# Parallel
+parallel_running: PARALLELRUNNING=true
+not_parallel_running: PARALLELRUNNING=false
