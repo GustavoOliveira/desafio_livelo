@@ -1,4 +1,4 @@
-require_relative '../../sections/produto/produto_details.rb'
+require_relative '../../sections/produto/produto_detalhes.rb'
 
 module Pages
   module Produto
