@@ -16,7 +16,7 @@ Funcionalidade: Adicionar produto no carrinho
         | produto         |
         | cafeteira       |
         | aspirador de pó |
-        | ferro de passar |
+        | batedeira       |
 
     @add_menu
     Cenário: Adicionar produto no carrinho pela categoria
