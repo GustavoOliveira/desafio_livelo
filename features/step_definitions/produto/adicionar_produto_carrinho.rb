@@ -26,17 +26,13 @@ end
 Então("o produto deverá estar no carrinho") do
   @carrinho = $ec_pages.carrinho
 
-  @carrinho.cart.wait_until_cart_item_visible
-  expect(@produto_preco).to eql @carrinho.cart.product_price_cart.text.delete(' Pontos')
+  @carrinho.cart_info.wait_until_cart_item_visible
+  preco_carrinho = @carrinho.cart_info.product_price_cart.text.delete(' Pontos')
 
-  # o produto pode mudar de nome ao ser colocado no carrinho
-  if @produto_nome.eql? @carrinho.cart.product_name_cart.text
-    expect(@produto_nome).to eql @carrinho.cart.product_name_cart.text
-    puts @produto_nome
-  else
-    expect(@carrinho.cart.product_name_cart[:href]).to have_content @produto_url
-    puts @carrinho.cart.product_name_cart[:href]
-    puts @produto_url
+  expect(@carrinho.cart_info.product_name_cart.text).to have_content @produto_nome
+
+  unless @produto_preco.eql? preco_carrinho
+    expect(@carrinho.cart_info.price_msg.text).to eql "Atenção! O valor desse produto sofreu uma alteração." 
   end
 end
 
